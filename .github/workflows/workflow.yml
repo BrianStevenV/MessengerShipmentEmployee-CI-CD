@@ -48,5 +48,5 @@ jobs:
       - name: run all test
         run: mvn test
       - name: create .jar and install
-        run: mvn instal
+        run: mvn install
 
