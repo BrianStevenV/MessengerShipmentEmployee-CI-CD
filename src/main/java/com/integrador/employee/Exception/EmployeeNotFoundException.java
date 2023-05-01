@@ -1,14 +1,14 @@
 package com.integrador.employee.Exception;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 @Data
-public class HandlerResponseException extends ResponseStatusException {
+public class EmployeeNotFoundException extends EntityNotFoundException {
     private String message;
     private HttpStatus status;
-    public HandlerResponseException(HttpStatus status, String message){
-        super(status,message);
+    public EmployeeNotFoundException(HttpStatus status, String message){
+        super(message);
         this.status = status;
         this.message = message;
     }

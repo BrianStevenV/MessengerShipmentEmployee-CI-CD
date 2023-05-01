@@ -1,6 +1,7 @@
 package com.integrador.employee;
 
 import com.integrador.employee.DTO.EmployeeDTO;
+import com.integrador.employee.Exception.EmployeeNotFoundException;
 import com.integrador.employee.Exception.HandlerResponseException;
 import com.integrador.employee.Module.Employee;
 import com.integrador.employee.Module.EmployeeFactory.EmployeeFactoryImp;
@@ -31,16 +32,18 @@ public class EmployeeServiceTest {
 
     @Test
     public void validateCreateEmployee(){
-        Employee employee = new Employee(123,"Brian","Steven","3192621119","brian@gmail.com","Carrera Java","Ciudad Java", "10 years", "O+", TypeEmployee.COORDINATOR);
-        Employee service = employeeService.create(employee);
+        EmployeeDTO employee = new EmployeeDTO(123,"Brian","Steven","3192621119","brian@gmail.com","Carrera Java","Ciudad Java", "10 years", "O+", TypeEmployee.COORDINATOR);
+        Employee employeeTrue = new Employee(employee.getDni(),employee.getNameEmployee(), employee.getLastNameEmployee(), employee.getPhoneEmployee(), employee.getEmailEmployee(), employee.getResidencyAddressEmployee(),employee.getCityLocationEmployee(), employee.getLengthServiceEmployee(), employee.getRhEmployee(), employee.getTypeEmployee());
+        EmployeeDTO service = employeeService.create(employee);
         assertTrue((employee.getNameEmployee() != null && employee.getLastNameEmployee() != null && employee.getDni() instanceof Integer));
     }
 
     @Test(expected = HandlerResponseException.class)
     public void validationDNI(){
         //Arrange
-        Employee employee = new Employee(null,"Brian","Steven","3192621119","brian@gmail.com","Carrera Java","Ciudad Java", "10 years", "O+", TypeEmployee.COORDINATOR);
-        Employee response = this.employeeService.create(employee);
+        EmployeeDTO employee = new EmployeeDTO(null,"Brian","Steven","3192621119","brian@gmail.com","Carrera Java","Ciudad Java", "10 years", "O+", TypeEmployee.COORDINATOR);
+        Employee employeeTrue = new Employee(employee.getDni(),employee.getNameEmployee(), employee.getLastNameEmployee(), employee.getPhoneEmployee(), employee.getEmailEmployee(), employee.getResidencyAddressEmployee(),employee.getCityLocationEmployee(), employee.getLengthServiceEmployee(), employee.getRhEmployee(), employee.getTypeEmployee());
+        EmployeeDTO response = this.employeeService.create(employee);
         //Act and Assert
         assertThrows(ResponseStatusException.class, () -> {
             employeeService.create(employee);
@@ -69,12 +72,12 @@ public class EmployeeServiceTest {
         when(employeeRepository.findById(num)).thenReturn(Optional.of(employee));
         employeeRepository.save(employee);
 
-        Optional<Employee> foundClient = employeeRepository.findById(num);
-        assertNotNull(foundClient);
+        Optional<Employee> foundEmployee = employeeRepository.findById(num);
+        assertNotNull(foundEmployee);
 
-        Boolean isDeleted = employeeService.deleteEmployee(dni);
-        assertFalse(isDeleted);
+        assertThrows(EmployeeNotFoundException.class, () -> employeeService.deleteEmployee(dni));
     }
+
 
     @Test
     public void testGetEmployee(){

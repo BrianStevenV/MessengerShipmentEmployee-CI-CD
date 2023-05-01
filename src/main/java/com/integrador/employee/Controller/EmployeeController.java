@@ -27,7 +27,7 @@ public class EmployeeController {
     @ApiOperation(value="employee", notes= "this create an Employee and save in the database", response = Employee.class)
     @PostMapping("/employee")
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee register(@ApiParam(value = "Employee object", required = true) @RequestBody Employee employeeCreated){ return employeeService.create(employeeCreated);}
+    public EmployeeDTO register(@ApiParam(value = "Employee object", required = true) @RequestBody EmployeeDTO employeeCreated){ return employeeService.create(employeeCreated);}
 
     @ApiResponses(value={
             @ApiResponse( code = 201, message = "update Employee success"),
@@ -35,16 +35,15 @@ public class EmployeeController {
             @ApiResponse( code = 500, message ="That's an internal error"),
     })
     @ApiOperation(value="employee", notes= "this update all Employee and save in the database", response = Employee.class)
-    @PutMapping("/employee/all/{dni}")
-    public ResponseEntity<Employee> updateEmployeeAllData(@ApiParam(value = "DNI Employee", required = true)@PathVariable Integer dni, @ApiParam(value = "Employee object", required = true)@RequestBody Employee employeeToUpdate) {
-        Optional<Employee> client = employeeService.updateEmployeeAll(dni, employeeToUpdate);
+    @PutMapping("/employee/{dni}")
+    public ResponseEntity<EmployeeDTO> updateEmployee(@ApiParam(value = "DNI Employee", required = true)@PathVariable Integer dni, @ApiParam(value = "Employee object", required = true)@RequestBody EmployeeDTO employeeToUpdate) {
+        Optional<EmployeeDTO> client = employeeService.updateEmployee(dni, employeeToUpdate);
         if (client.isPresent()) {
             return ResponseEntity.ok(client.get());
         } else {
             return ResponseEntity.notFound().build();
         }
     }
-    //intento
 
     @ApiResponses(value={
             @ApiResponse( code = 201, message = "delete Employee success"),
