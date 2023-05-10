@@ -15,18 +15,19 @@ susbscription.
 #Technologies
 The project was built in: 
 
--Java
--SpringBoot
--SpringJPA
--SpringSecurity
--MySQL
--JUnit
--Swagger
--CI/CD
+- Java
+- SpringBoot
+- SpringJPA
+- SpringSecurity
+- MySQL
+- JUnit
+- Swagger
+- CI/CD
 
 # Funcionalities
 [POST] Create: An Employee can register in the database.
 RequestBody:
+```JSON
 {
         "dni": 789,
         "nameEmployee": "Juan",
@@ -39,10 +40,15 @@ RequestBody:
         "rhEmployee": "O+",
         "typeEmployee": "DRIVER"
 }
+```
 
 [PUT] Update: An Employee can update their information.
-Param: The param need an Employee registered in the database: {"dni":789}
+Param: The param need an Employee registered in the database: 
+```JSON
+{"dni":789}
+```
 RequestBody:
+```JSON
 {
       
         "nameEmployee": "Juan",
@@ -55,12 +61,19 @@ RequestBody:
         "rhEmployee": "O+",
         "typeEmployee": "DRIVER"
 }
+```
 
 [DELETE] Delete: An Employee can delete their susbscription.
-Param: The param need a Employee registered in the database: {"dni":789}
+Param: The param need a Employee registered in the database: 
+```JSON
+{"dni":789}
+```
 
 [GET] Check Employee: An Employee can consult their information in the database.
-Param: The param need an Employee registered in the database: {"dni":789}
+Param: The param need an Employee registered in the database: 
+```JSON
+{"dni":789}
+```
 
 ![EmployeeMessengerService](https://user-images.githubusercontent.com/119947948/236727112-819d203c-4683-4d4f-854a-c45f60910ab4.jpg)
 
